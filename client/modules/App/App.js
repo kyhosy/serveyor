@@ -5,14 +5,17 @@ import { connect } from 'react-redux';
 import styles from './App.css';
 
 // Import Components
-import Helmet from 'react-helmet';
+// import Helmet from 'react-helmet';
 import DevTools from './components/DevTools';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
+import Header from './components/Header';
+// import Footer from './components/Footer/Footer';
+import LeftDrawer from './components/LeftDrawer';
 
 // Import Actions
 import { toggleAddPost } from './AppActions';
 import { switchLanguage } from '../../modules/Intl/IntlActions';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 
 export class App extends Component {
   constructor(props) {
@@ -29,11 +32,26 @@ export class App extends Component {
   };
 
   render() {
+    // let { navDrawerOpen, isShowPopupUpdate, isShowPopupError, title, content } = this.state;
+        const navDrawerOpen = false;
+
+        const paddingLeftDrawerOpen = 236;
+
+        const styles = {
+            header: {
+                paddingLeft: navDrawerOpen ? paddingLeftDrawerOpen : 0,
+            },
+            container: {
+                margin: '80px 20px 20px 15px',
+                width: '97%',
+                paddingLeft: navDrawerOpen ? paddingLeftDrawerOpen : 0
+            }
+        };
     return (
       <div>
-        {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
+        {/* {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />} */}
         <div>
-          <Helmet
+          {/* <Helmet
             title="MERN Starter - Blog App"
             titleTemplate="%s - Blog App"
             meta={[
@@ -47,16 +65,22 @@ export class App extends Component {
                 content: 'width=device-width, initial-scale=1',
               },
             ]}
-          />
-          <Header
+          /> */}
+          {/* <Header
             switchLanguage={lang => this.props.dispatch(switchLanguage(lang))}
             intl={this.props.intl}
             toggleAddPost={this.toggleAddPostSection}
-          />
-          <div className={styles.container}>
+          /> */}
+          {/* <div className={styles.container}>
             {this.props.children}
           </div>
-          <Footer />
+          <Footer /> */}
+          <MuiThemeProvider>
+            <div>
+              <Header styles={{paddingLeft:300}} />
+              <LeftDrawer/>
+            </div>
+          </MuiThemeProvider>
         </div>
       </div>
     );
